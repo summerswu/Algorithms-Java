@@ -32,3 +32,15 @@ for i in range(25):
     walk = random_walk(10)
     print(walk, "Distance", abs(walk[0])+abs(walk[1]) )
     
+
+monte_carlo_sample = 10
+
+for i in range(1,31):
+    no_transport = 0
+    for i in range(monte_carlo_sample):
+        walk = random_walk(i)
+        distance_FH = abs(walk[0])+abs(walk[1])
+        if distance_FH<=4:
+            no_transport = no_transport + 1 
+    percent_no_transport = float(no_transport / monte_carlo_sample)
+    print("The random walk is ",i, "The percent is: ", percent_no_transport)
