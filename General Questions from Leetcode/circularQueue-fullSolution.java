@@ -57,7 +57,7 @@ class MyCircularQueue {
     }
     
     /** Checks whether the circular queue is empty or not. */
-    public boolean isEmpty() {
+    public boolean isEmpty() {Ya
         return head == -1;
     }
     

@@ -1,5 +1,4 @@
 //implementation of the queue data structure 
-
 class Queue{
 	private List<Integer> data;
 	private int p_start;
