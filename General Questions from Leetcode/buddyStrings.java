@@ -1,27 +1,16 @@
 class Solution {
     public boolean buddyStrings(String A, String B) {
         if(A.length()!=B.length())
-            return false;   
+            return false;  
         
-        char[] first = A.toCharArray();
-        char[] second = B.toCharArray();
-        
-        int[] one = new int[A.length()];
-        int[] two = new int[A.length()];
-        
-        for(int i = 0; i<A.length(); i++){
-            one[i] =  (int)first[i];
-            two[i] = (int)second[i];
+        if(A.equals(B)){
+            Set<Character> s = new HashSet<Character>();
+            for (char c : A.toCharArray()) s.add(c);
+            return s.size() < A.length();
         }
         
-        Arrays.sort(one);
-        Arrays.sort(two);
-        
-        for(int i = 0; i<A.length(); i++){
-            if(one[i]!=two[i])
-                return false;
-        }
-        
-        return true;
+        List<Integer> dif = new ArrayList<>();
+        for (int i = 0; i < A.length(); ++i) if (A.charAt(i) != B.charAt(i)) dif.add(i);
+        return dif.size() == 2 && A.charAt(dif.get(0)) == B.charAt(dif.get(1)) && A.charAt(dif.get(1)) == B.charAt(dif.get(0));
     }
 }
