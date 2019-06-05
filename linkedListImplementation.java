@@ -1,80 +1,86 @@
 class MyLinkedList {
-    
-    class Node{
+
+    /** A very simple node class. */
+    private static class Node {
         int val;
         Node next;
-        public Node(int val) {
-            this.val = val;
-        }
     }
-    
-    private Node head;
-    private int size;
+
+    // Predecessor of the first element
+    private Node headPred;
+    // Predecessor of the tail
+    private Node tailPred;
+    private int length;
 
     /** Initialize your data structure here. */
     public MyLinkedList() {
-        
+        headPred = new Node();
+        tailPred = headPred;
+        length = 0;
     }
-    
+
     /** Get the value of the index-th node in the linked list. If the index is invalid, return -1. */
-      public int get(int index) {
-        if (index >= size) return -1;
-        Node current = head;
-        for (int i = 0; i < index; i++) {
-            current = current.next;
+    public int get(int index) {
+        if ((index < 0) || (index >= length)) {
+            return -1;
         }
-        return current.val;
+        return findPred(index).next.val;
     }
-    
+
     /** Add a node of value val before the first element of the linked list. After the insertion, the new node will be the first node of the linked list. */
     public void addAtHead(int val) {
-        Node prev = head;
-        head = new Node(val);
-        head.next = prev;
-        size++;
+        if (length == 0) {
+            addAtTail(val);
+        } else {
+            addAfter(headPred, val);
+        }
     }
-    
+
     /** Append a node of value val to the last element of the linked list. */
     public void addAtTail(int val) {
-        Node node = new Node(val);
-        size++;
-        if (head == null) {
-            head = node;
-        } else {
-            Node current = head;
-            while (current.next != null) {
-                current = current.next;
-            }
-            current.next = node;
-        }
+        addAfter(tailPred, val);
+        tailPred = tailPred.next;
     }
-    
+
     /** Add a node of value val before the index-th node in the linked list. If index equals to the length of linked list, the node will be appended to the end of linked list. If index is greater than the length, the node will not be inserted. */
     public void addAtIndex(int index, int val) {
-        if (index > size) return;
-        if (index == 0) {
+        if (index < 0) {
             addAtHead(val);
-        } else {
-            size++;
-            Node current = head;
-            for (int i = 0; i < index - 1; i++) {
-                current = current.next;
-            }
-            Node node = new Node(val);
-            node.next = current.next;
-            current.next = node;
+        } else if (index == length) {
+            addAtTail(val);
+        } else if ((index >= 0) && (index < length)) {
+            addAfter(findPred(index), val);
         }
     }
-    
+
     /** Delete the index-th node in the linked list, if the index is valid. */
     public void deleteAtIndex(int index) {
-        if (index >= size) return;
-        size--;
-        Node current = head;
-        for (int i = 0; i < index - 1; i++) {
-            current = current.next;
+        if ((index >= 0) && (index < length)) {
+            Node pred = findPred(index);
+            if (index == length - 1) { // Remove last element
+                // Move tail to the left
+                tailPred = pred;
+            }
+            pred.next = pred.next.next;
+            --length;
         }
-        current.next = current.next.next;
     }
-    
+
+    /** Return the predecessor of the index-th node. */
+    private Node findPred(int index) {
+        Node pred = headPred;
+        for (int i = 0; i < index; ++i) {
+            pred = pred.next;
+        }
+        return pred;
+    }
+
+    /** Add an element after the given node. */
+    private void addAfter(Node pred, int val) {
+        Node node = new Node();
+        node.val = val;
+        node.next = pred.next;
+        pred.next = node;
+        ++length;
+    }
 }
