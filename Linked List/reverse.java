@@ -3,22 +3,20 @@ class Solution {
           
           
           ListNode pointer = head;
-          ListNode nextVal = head;
-          ListNode holder = head;
+          ListNode nextVal = null;
+          ListNode Creator = null;
           
-          while(nextVal.next != null){
-              holder = pointer;
-              pointer = pointer.next;
+          while(pointer != null){
+              
               nextVal = pointer.next;
-              pointer.next = holder;
+              pointer.next = Creator;
+             
+              
+              Creator = pointer;
               pointer = nextVal;
-              System.out.println("Holder is " + holder.val);
-              System.out.println("Pointer is " + pointer.val);
-              System.out.println("NextVal is " + nextVal.val);
+              
           }
-        
-          head.next = null;
     
-          return pointer;
+          return Creator;
     }
 }
