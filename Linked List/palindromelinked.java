@@ -1,31 +1,34 @@
 class Solution {
-    public boolean isPalindrome(ListNode head) {
-        if(head == null)return true;
-        
-        ListNode newHead = reverseList(head);
-        
-        ListNode curr1 = head;
-        ListNode curr2 = newHead;
-        
-        while(curr1.next != null && curr2.next != null){
-            if(curr1.val != curr2.val){
+   public boolean isPalindrome(ListNode head) {
+        ListNode fast = head, slow = head;
+        while (fast != null && fast.next != null) {
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+        if (fast != null) { // odd nodes: let right half smaller
+            slow = slow.next;
+        }
+        slow = reverseList(slow);
+        fast = head;
+
+        while (slow != null) {
+            if (fast.val != slow.val) {
                 return false;
             }
-            curr1 = curr1.next;
-            curr2 = curr2.next;
+            fast = fast.next;
+            slow = slow.next;
         }
-        
         return true;
     }
     
-    public ListNode reverseList(ListNode head) {
+    public ListNode reverseList(ListNode thishead) {
         // base case
-        if(head == null || head.next == null) return head;
+        if(thishead == null || thishead.next == null) return thishead;
         
-        ListNode newHead = reverseList(head.next);
+        ListNode newHead = reverseList(thishead.next);
         
-        head.next.next = head;
-        head.next = null;
+        thishead.next.next = thishead;
+        thishead.next = null;
 
         return newHead;
     }
