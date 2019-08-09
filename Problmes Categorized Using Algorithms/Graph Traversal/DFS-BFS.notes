@@ -1,0 +1,10 @@
+Graph is a collection of nodes - Graph review
+
+Depth First Search:
+	--> Typically Recursive
+	--> Can be implemented iteratively using stack
+	--> As the name suggest: go as deep as possible and return
+
+Breath First Search:
+	--> Search for desired node layer by layer
+	--> implemented using queue

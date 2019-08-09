@@ -1,0 +1,34 @@
+-----------------------------------------------------------
+        Most Frequent Algorithms in Interviews 
+-----------------------------------------------------------
+
+Tech Lead:
+
+	1. Tree Traversal(DFS/BFS) - Iteratively, Recursively
+	   know how to impelement a Tree, binary search
+
+	   - helper functions are really important
+
+	2. Binary Search Tree
+
+	3. Recursion - you can always implement iteratively in stack or queues
+
+	5. OOP --> know how to create a class
+
+	6. Reverse a linked list? 
+
+	7. if you have time know sort
+
+	8. make sure you understand the string
+
+	9. Dynamic Programming
+
+Algo Expert:
+
+	1. DFS/BFS
+
+	2. Match Parenthese
+
+	3. Hash Table utilization
+
+	4. Multi-Pointer
