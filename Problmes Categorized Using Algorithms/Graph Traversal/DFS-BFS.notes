@@ -9,7 +9,7 @@ Breath First Search:
 	--> Search for desired node layer by layer
 	--> implemented using queue
 
-Depth First Search Sudo:
+Breadth First Search Sudo:
 
 [java]{
 
@@ -23,7 +23,9 @@ Depth First Search Sudo:
 		while(queue.size()!=0){
 			step = step+1;
 
-			for(int i = 0; i<queue.size(); i++){
+			queue.size()
+
+			for(int i = 0; i<; i++){
 				if(queue.head()==target) return step;
 
 				for(Node children : all of the children/neighbor){
