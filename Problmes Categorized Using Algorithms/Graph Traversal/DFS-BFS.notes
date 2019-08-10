@@ -8,3 +8,33 @@ Depth First Search:
 Breath First Search:
 	--> Search for desired node layer by layer
 	--> implemented using queue
+
+Depth First Search Sudo:
+
+[java]{
+
+	//this algorithm return the number of step you have to take
+	int bfs(Node root, Node target){
+		Queue<Node> queue;
+		int step = 0;
+
+		queue.enqueue(root);
+
+		while(queue.size()!=0){
+			step = step+1;
+
+			for(int i = 0; i<queue.size(); i++){
+				if(queue.head()==target) return step;
+
+				for(Node children : all of the children/neighbor){
+					queue.enqueue(children);
+				}
+
+				queue.dequeue();
+			}
+		}
+
+		return -1; //there is no path from root to target
+	}
+
+	}[java]
