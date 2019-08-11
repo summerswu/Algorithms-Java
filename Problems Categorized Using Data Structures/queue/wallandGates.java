@@ -5,7 +5,7 @@ class Solution {
     public void wallsAndGates(int[][] rooms) {
         for(int i = 0 ; i<rooms.length; i++){
             for(int j = 0; j < rooms[i].length; j++){
-                if(rooms[i][j] == i) rooms[i][j] = shortestPath(rooms,i,j);
+                if(rooms[i][j] == inf) rooms[i][j] = shortestPath(rooms,i,j);
             }
         }
     }
@@ -27,20 +27,18 @@ class Solution {
         
         while(!queue.isEmpty()){
             
-            currDistance++;
             int size = queue.size();
-            
             for(int z = 0; z<size; z++){
                 
                 code = queue.poll();  
                 int i = code/m;  
                 int j = code%m; 
                 
-				if(rooms[i][j]==0 && !visited.contains(code)) sDistance = Math.min(sDistance, currDistance);
+                if(rooms[i][j]==0 && !visited.contains(code)) sDistance = Math.min(sDistance, currDistance);
                 
                 int newCode = 0;
 
-				if(i > 0){
+                if(i > 0 && rooms[i-1][j] != -1){
                     newCode = (i-1)*m + j;
                     if(!visited.contains(newCode)){
                         queue.add(newCode);
@@ -48,7 +46,7 @@ class Solution {
                     }
                 }//up
                     
-                if(i < n-1){
+                if(i < n-1 && rooms[i+1][j] != -1){
                     newCode = (i+1)*m + j;
                     if(!visited.contains(newCode)){
                         queue.add(newCode);
@@ -56,7 +54,7 @@ class Solution {
                     }
                 }//down
                     
-                if(j > 0){
+                if(j > 0 && rooms[i][j-1] != -1){
                     newCode = (i)*m + j - 1;
                     if(!visited.contains(newCode)){
                         queue.add(newCode);
@@ -64,7 +62,7 @@ class Solution {
                     }
                 }//left
                 
-                if(j < m-1){
+                if(j < m-1 && rooms[i][j+1] != -1){
                     newCode = (i)*m + j + 1 ;
                     if(!visited.contains(newCode)){
                         queue.add(newCode);
@@ -72,7 +70,9 @@ class Solution {
                     }
                 }//right  
                 
-			}
+            }
+            
+            currDistance++;
         }
         return sDistance;
     }
