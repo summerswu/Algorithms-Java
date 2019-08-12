@@ -1,45 +1,37 @@
 class Solution {
     public int openLock(String[] deadends, String target) {
-        Queue<String> queue;
-        int finalStep = Integer.MAX_VALUE;
+        int finalStep = -1;
         int currStep = 0;
         
-        HashSet<String> deadEnds = new HashSet<String>(Arrays.asList(deadends));
+        Queue<String> queue = new LinkedList<String>();
+        HashSet<String> deadEnds = new HashSet<String>(Arrays.asList(deadends)); 
         
-        queue.offer((String)0000);//add root
+        queue.offer("0000");//add root
             
         while(queue.size()!=0){
-            
             int size = queue.size();
             
-            for(int i = 0; i<size; i++){
+            for(int j = 0; j < size; j++){
+                
                 String head = queue.poll();
-                if(deadEnds.contains(head)) continue;
-                if(head == target && currStep < finalStep) finalStep = currStep;
                 
-                int intHead = Integer.valueOf(head);
-                int addInt = intHead;
-                int combo = 1;
-                inthead = inthead + combo;
-                String add = Integer.toString(inthead);
-                queue.add(add);
-                deadEnds.add(add);
+                if(head.equals(target)) finalStep = currStep;
                 
-                for(int j = 1; j<4; j++){
-                    intHead = addInt;
-                    combo = 10*j;
-                    inthead = inthead + combo;
-                    String add = Integer.toString(inthead);
-                    queue.add(add);
-                    deadEnds.add(add);
+                if(!deadEnds.contains(head)) {
+                    for (int i = 0; i < 4; i++) {
+                        for (int d = -1; d <= 1; d += 2) {
+                            int y = ((head.charAt(i) - '0') + d + 10) % 10;
+                            String nei = head.substring(0, i) + ("" + y) + head.substring(i+1);
+                            if (!deadEnds.contains(nei)) {
+                                queue.offer(nei);
+                            }
+                        }
+                    }
                 }
-            }
-            
-            currStep++;
-            
+                deadEnds.add(head);
+            } 
+            currStep++; 
         }
-        
-        if(finalStep == Integer.MAX_Value) return -1;
         return finalStep;
     }
 }
