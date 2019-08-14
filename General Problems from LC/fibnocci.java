@@ -14,3 +14,14 @@ class Solution {
         return b;
     }
 }
+
+class recursiveSolution {
+    public int fib(int N) {
+        
+        if(N <= 1) return N;
+        
+        int sum = fib(N-1) + fib(N-2);
+        
+        return sum;
+    }
+}
