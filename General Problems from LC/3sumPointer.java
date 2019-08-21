@@ -6,6 +6,7 @@ class Solution {
         Arrays.sort(nums);
         
         for(int i = 0; i < nums.length-2; i++){
+            if(nums[i]>0) break;
             
             if( i == 0 || nums[i] > nums[i-1]){
                 int lookingFor = -(nums[i]);
@@ -17,19 +18,21 @@ class Solution {
                     
                     if( (nums[start] + nums[end]) == lookingFor){
                         arr.add(Arrays.asList(nums[i],nums[start],nums[end]));
-                        while(nums[start+1]==nums[start])start++;
+                        while(start < end && nums[start+1]==nums[start])start++;
                         start++;
+                        while(start < end && nums[end-1]==nums[end])end--;
+                        end--;
                     }
                     
                     else if( (nums[start] + nums[end]) > lookingFor)
                     {
-                        while(nums[end-1]==nums[end])end--;
+                        while(start < end && nums[end-1]==nums[end])end--;
                         end--;
                     }
                     
                     else if( (nums[start] + nums[end]) < lookingFor)
                     {
-                        while(nums[start+1]==nums[start])start++;
+                        while(start < end && nums[start+1]==nums[start])start++;
                         start++;
                     }
                     
