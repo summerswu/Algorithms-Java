@@ -24,8 +24,7 @@ class Solution {
             for(int i = 0; i <lists.length; i++){
             
                 if(lists[i] != null && lists[i].val <= min){
-                    min = lists[i].val;
-                    min_index = i;
+                    min = lists[i].val; 
                     isBreak = false;
                 }
                 
