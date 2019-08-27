@@ -1,31 +1,43 @@
 class Solution {
     public int totalFruit(int[] tree) {
+        if(tree.length == 0) return 0;
         
-        HashSet<Integer> basket = new HashSet<Integer>();
-        HashMap<Integer, Integer> firstOccur = new HashMap<Integer,Integer>();
-        int position = 0;
-        int max = 0;
-        int fruitCount = 0;
+        Map<Integer, Integer> map = new HashMap<Integer, Integer>();
         
-        while(position < tree.length){
-            basket.add(tree[position]);
-            firstOccur.putIfAbsent(tree[position],position);
-            if(basket.size()<3){
-                fruitCount++;
-                position++;
-                System.out.println(fruitCount);
+        int maxFruit = 0;
+        int laggingPointer = 0;
+        
+        ArrayList<Integer> currArr = new ArrayList<Integer>();
+        
+        for(int i = 0; i<tree.length;i++){
+            
+            if(currArr.size()<2 && !map.containsKey(tree[i])){
+                currArr.add(tree[i]);
             }
-            else{
-                position = position - 1;
-                if(firstOccur.get(position)!=null)position = firstOccur.get(position);
-                if(fruitCount>max) max = fruitCount;
-                fruitCount = 0;
-                basket.clear();
-                System.out.println("maximum is" + max);
+            
+            map.put(tree[i],i);
+            
+            if(map.size() > 2){
+                if(tree[i-1] == currArr.get(1)){
+                    laggingPointer = map.get(currArr.get(0))+1;
+                }
+                else {
+                    laggingPointer = map.get(currArr.get(1))+1;
+                }
+        
+                map.clear();
+                map.put(tree[i-1], i-1);
+                map.put(tree[i],i);
+                
+                currArr.clear();
+                currArr.add(tree[i]);
+                currArr.add(tree[i-1]);
             }
+            
+            maxFruit = Math.max(i-laggingPointer, maxFruit);
+            
         }
         
-        if(fruitCount>max)max = fruitCount;
-        return max;
+        return maxFruit + 1;
     }
 }
