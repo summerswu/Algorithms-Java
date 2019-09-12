@@ -1,0 +1,124 @@
+function that takes in a string:
+all sorts of chars 
+return if all the brackets match
+ex: {[df5ka(){]}]}
+
+==>
+
+	if i see any of the three
+		push it's inverse to the stack
+	  
+	if i see any of the inverse 
+		see if it equals to poll 
+	  if it does continue
+	  else return false
+	  
+	Constant time algorithms
+	Space can be as much as half of the O(n/2)
+
+	Stack<Char>
+
+	{ [ () ] }
+
+	{[}]
+
+	}}}}}}}}
+
+	Stack: } 
+
+[java]{
+	public static boolean validateCloseBrackets(String str){
+
+	Stack<Character> inverseBrackets = new Stack<>()//stack for keeping the inverse brackets for checking
+  
+  for(int i = 0; i<str.length(); i++){
+  
+  	if(str.charAt(i) == '{' ) stack.push('}');
+    if(str.charAt(i) == '[' ) stack.push(']');
+    if(str.charAt(i) == '(' ) stack.push(')');//push inverse into the stack
+    
+    if(str.charAt(i) == '}' ){ 
+    	if (stack.isEmpty() || stack.pop() != '}') return false;
+    }
+    if(str.charAt(i) == ']' ){ 
+    	if (stack.isEmpty() || stack.pop() != ']') return false;
+    }
+     if(str.charAt(i) == ')' ){ 
+    	if (stack.isEmpty() || stack.pop() != ')') return false;
+    }//this checks the inverse to make sure the brackets match up
+    
+  }//iterate throught the string to validate
+  
+  if(!stack.isEmpty()) return false;
+  
+  return true;//all char checks out
+  
+}
+}[java]
+
+implement a class 
+
+two methods
+
+addRoute(Char start, Char destionation);
+
+printAllRoute(/*same input*/);
+
+A -> B
+B->C
+A -> D
+D -> C
+print_all(A,C)
+A,B,C
+A,D,C
+
+a b c
+a d c
+
+Node: Char, Collection<Characters>
+
+HashMap - overal graph 
+
+HashMap
+
+[java]{
+		class routesMap{
+		HashMap<Character, HashSet<Character>> routeGraph = new HashMap<Character, HashSet<Character>>();
+		//this is the basis of our graph
+	    
+	    public routMap(){
+	    
+	    }
+	    
+	    public void addRoute(Char start, Char finish){
+	    	if(routeGraph.containsKey(start)){
+	      	routeGraph.get(start).add(finish);
+	      } 
+	      HashSet<Character> childrenNodes = HashSet<Character>();
+	      childnreNodes.add(finish);
+	      routeGraph.putIfAbsent(start, childrenNodes);
+	    }
+	    
+	    public boolean printAllRoute(Char start, Char finish){
+	    
+	     //queue<Characters>
+	     //List<List<Character>>
+	     	
+	     //offer source character to queue
+	      
+	     //while queue is empty
+	     	//int size = queue size
+	      //iterate through the queue using size
+	      //pop one current character in queue
+	      //if that character == finish
+	      	//print list
+	        //return true
+	        //if not, continue the graph traversal
+	      	//routeGraph.get()
+	        	//iterate through the hashset
+	          	//add all of the character in hashset to queue
+	            
+	      return false;
+	    }
+	}
+}[java]
