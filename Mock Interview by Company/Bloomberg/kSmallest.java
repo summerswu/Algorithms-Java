@@ -33,4 +33,4 @@ class Solution{
   
 }
 
-#Given an array of integers write a function that returns the indices of the two smallest integers in the array.
+//Given an array of integers write a function that returns the indices of the two smallest integers in the array.
