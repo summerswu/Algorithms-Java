@@ -1,5 +1,4 @@
-
-public class disjointedNodes {
+class Solution {
     public int makeConnected(int n, int[][] connections) {
         
         if(connections.length<n-1)
@@ -7,16 +6,18 @@ public class disjointedNodes {
         
         int disjointed = 0;//number of disjointed sets = 0
         
-        int[][] map = new int[n][n];//initiatie the adjacency list for the graph
+        List<Integer>[] map = new List[n];//initiatie the adjacency list for the graph
         HashSet<Integer> remaining = new HashSet<Integer>();//initiate the disjointed hashset
         
         for(int i = 0; i<n; i++){
             remaining.add(i); 
         }
         
+        for (int i = 0; i < n; i++) map[i] = new ArrayList<>();
+        
         for(int i = 0; i<connections.length; i++){//construct the graph
-            map[connections[i][0]][connections[i][1]] = 1;
-            map[connections[i][1]][connections[i][0]] = 1;  
+           map[connections[i][0]].add(connections[i][1]);
+           map[connections[i][1]].add(connections[i][0]);
         }
         
         while(remaining.size()!=0){
@@ -31,15 +32,19 @@ public class disjointedNodes {
             visited.add(next);
             
             while(!q.isEmpty()){
+                
                 int curr = q.poll();//bfs, for every node
-                for(int i = 0; i<map[curr].length; i++){
-                    if(map[curr][i] == 1 && (!visited.contains(i))){
-                        map[curr][i] = 0;
-                        map[i][curr] = 0;
-                        q.add(i);
-                        visited.add(i);
+                
+                for(int i = 0; i<map[curr].size(); i++){
+                    
+                    int currNode = map[curr].get(i);
+                    
+                    if(!visited.contains(currNode)){
+                        visited.add(currNode);
+                        q.offer(currNode);
                     }
-                }            
+                    
+                }      
             }
             
             for(int element : visited){
@@ -49,7 +54,6 @@ public class disjointedNodes {
             disjointed++;//increase the count of disjointed set 
             
         }
-        
         //if the nodes you visited are in the visited set
         return disjointed-1;
     }
